@@ -4,5 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_workouts">WorkoutsActivity</string>
+    <string name="tv1">First Tab</string>
+    <string name="tv2">Second Tab</string>
+    <string name="tv3">Third Tab</string>
 
 </resources>
