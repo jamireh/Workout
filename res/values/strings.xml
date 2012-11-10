@@ -16,6 +16,7 @@
         <item >Reps</item>
         <item >Miles</item>
     </string-array>
-    <string name="exercisehint">ie: Squats</string>
+    <string name="exercisehint">ie: Biking</string>
+    <string name="numberhint">20</string>
 
 </resources>
