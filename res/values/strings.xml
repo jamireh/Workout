@@ -7,5 +7,15 @@
     <string name="tv1">First Tab</string>
     <string name="tv2">Second Tab</string>
     <string name="tv3">Third Tab</string>
+    <string name="create">Create a New Workout:</string>
+    <string name="workoutname">Workout Name:</string>
+    <string name="wrkouthint">ie: Legs Workout</string>
+    <string name="exercisename">Exercise Names:</string>
+    <string-array name="spinnerarray">
+        <item >Minutes</item>
+        <item >Reps</item>
+        <item >Miles</item>
+    </string-array>
+    <string name="exercisehint">ie: Squats</string>
 
 </resources>
