@@ -37,14 +37,14 @@ public class WorkoutsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_workouts, menu);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.mainmenu, menu);
+		inflater.inflate(R.menu.activity_newworkout, menu);
 		return true;
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuitem1:
-			Intent i = new Intent(this, newworkout.class);
+			Intent i = new Intent(this, NewWorkoutActivity.class);
 			startActivity(i);
 			break;
 		default:
