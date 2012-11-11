@@ -25,7 +25,8 @@ public final class R {
         public static final int editText2=0x7f080004;
         public static final int editText3=0x7f080005;
         public static final int menu_settings=0x7f08000c;
-        public static final int menuitem1=0x7f08000b;
+        public static final int menuitem1=0x7f08000d;
+        public static final int menuitem2=0x7f08000b;
         public static final int spinner1=0x7f080006;
         public static final int tabhost=0x7f080007;
         public static final int textView1=0x7f080000;

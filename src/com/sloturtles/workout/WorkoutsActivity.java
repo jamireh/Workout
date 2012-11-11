@@ -35,9 +35,8 @@ public class WorkoutsActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_workouts, menu);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_newworkout, menu);
+		inflater.inflate(R.menu.activity_workouts, menu);
 		return true;
 	}
 	@Override
@@ -47,6 +46,7 @@ public class WorkoutsActivity extends Activity {
 			Intent i = new Intent(this, NewWorkoutActivity.class);
 			startActivity(i);
 			break;
+			
 		default:
 			break;
 		}
