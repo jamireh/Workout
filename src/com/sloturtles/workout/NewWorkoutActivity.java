@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
 
 public class NewWorkoutActivity extends Activity {
 	@Override
@@ -21,8 +21,9 @@ public class NewWorkoutActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuitem2:
-			Toast.makeText(this, "Save button selected", Toast.LENGTH_SHORT)
-	          .show();
+			//Toast.makeText(this, "Save button selected", Toast.LENGTH_SHORT)
+	          //.show();
+			finish();
 			break;
 			
 		default:
