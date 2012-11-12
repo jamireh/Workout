@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvNewWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -12,63 +12,53 @@
         android:text="@string/create"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/bNewExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="25dp"
-        android:text="@string/workoutname"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_centerVertical="true"
+        android:text="@string/newbutton" />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
+        android:id="@+id/etExerciseLabel"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:ems="10"
-        android:hint="@string/wrkouthint" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_above="@+id/bNewExercise"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
-        android:text="@string/exercisename"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="55dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
+        android:layout_marginBottom="26dp"
         android:ems="10"
-        android:inputType="number" 
-        android:hint="@string/numberhint">
+        android:hint="@string/exercisehint" >
 
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/editText3"
+    <TextView
+        android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView3"
-        android:layout_toRightOf="@+id/spinner1"
-        android:ems="10"
-        android:hint="@string/exercisehint" />
+        android:layout_above="@+id/etExerciseLabel"
+        android:layout_alignParentLeft="true"
+        android:text="@string/exercisename"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Spinner
-        android:id="@+id/spinner1"
+    <EditText
+        android:id="@+id/etWorkoutName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvExerciseName"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="@string/wrkouthint" />
+
+    <TextView
+        android:id="@+id/tvWorkoutName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText3"
-        android:layout_below="@+id/textView3"
-        android:layout_toRightOf="@+id/editText2"
-        android:entries="@array/spinnerarray" />
+        android:layout_above="@+id/etWorkoutName"
+        android:layout_alignParentLeft="true"
+        android:text="@string/workoutname"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

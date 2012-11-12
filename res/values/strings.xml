@@ -11,12 +11,7 @@
     <string name="workoutname">Workout Name:</string>
     <string name="wrkouthint">ie: Legs Workout</string>
     <string name="exercisename">Exercise Names:</string>
-    <string-array name="spinnerarray">
-        <item >Minutes</item>
-        <item >Reps</item>
-        <item >Miles</item>
-    </string-array>
-    <string name="exercisehint">ie: Biking</string>
-    <string name="numberhint">20</string>
+    <string name="exercisehint">ie: 20 Minutes of Biking</string>
+    <string name="newbutton">Add Another Exercise</string>
 
 </resources>

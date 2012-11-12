@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class NewWorkoutActivity extends Activity {
+	
+	String sWorkoutName;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,8 +26,10 @@ public class NewWorkoutActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuitem2:
-			//Toast.makeText(this, "Save button selected", Toast.LENGTH_SHORT)
-	          //.show();
+			saveWorkout();
+			Toast.makeText(this, sWorkoutName + " saved", Toast.LENGTH_SHORT)
+	          .show();
+			sWorkoutName = "";
 			finish();
 			break;
 			
@@ -31,6 +38,13 @@ public class NewWorkoutActivity extends Activity {
 		}
 
 		return true;
+	}
+	
+	public void saveWorkout() {
+		EditText etWorkoutName;
+		etWorkoutName = (EditText) findViewById(R.id.etWorkoutName);
+		sWorkoutName = etWorkoutName.getText().toString();
+		WorkoutsActivity.workoutList.add(new Workouts(001, sWorkoutName, false));
 	}
 }
 
