@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/tvNewWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:text="@string/create"
+        android:paddingBottom="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/bNewExercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="@string/newbutton" />
-
-    <EditText
-        android:id="@+id/etExerciseLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bNewExercise"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="26dp"
-        android:ems="10"
-        android:hint="@string/exercisehint" >
-
-        <requestFocus />
-    </EditText>
-
     <TextView
-        android:id="@+id/tvExerciseName"
+        android:id="@+id/tvWorkoutName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etExerciseLabel"
-        android:layout_alignParentLeft="true"
-        android:text="@string/exercisename"
+        android:text="@string/workoutname"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/etWorkoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvExerciseName"
-        android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
         android:ems="10"
-        android:hint="@string/wrkouthint" />
+        android:hint="@string/wrkouthint" >
 
-    <TextView
-        android:id="@+id/tvWorkoutName"
-        android:layout_width="wrap_content"
+        <requestFocus />
+    </EditText>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etWorkoutName"
-        android:layout_alignParentLeft="true"
-        android:text="@string/workoutname"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:gravity="center" >
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/bNewExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="22dp"
+            android:text="@string/newbutton" />
+
+        <TextView
+            android:id="@+id/tvExerciseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bNewExercise"
+            android:layout_alignBottom="@+id/bNewExercise"
+            android:layout_alignParentLeft="true"
+            android:text="@string/exercisename"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/etExerciseLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:hint="@string/exercisehint" />
+
+</LinearLayout>

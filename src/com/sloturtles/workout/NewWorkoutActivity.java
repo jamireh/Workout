@@ -26,8 +26,7 @@ public class NewWorkoutActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuitem2:
-			saveWorkout();
-			Toast.makeText(this, sWorkoutName + " saved", Toast.LENGTH_SHORT)
+			Toast.makeText(this, saveWorkout() + " saved", Toast.LENGTH_SHORT)
 	          .show();
 			sWorkoutName = "";
 			finish();
@@ -40,11 +39,12 @@ public class NewWorkoutActivity extends Activity {
 		return true;
 	}
 	
-	public void saveWorkout() {
+	public String saveWorkout() {
 		EditText etWorkoutName;
 		etWorkoutName = (EditText) findViewById(R.id.etWorkoutName);
 		sWorkoutName = etWorkoutName.getText().toString();
 		WorkoutsActivity.workoutList.add(new Workouts(001, sWorkoutName, false));
+		return sWorkoutName;
 	}
 }
 

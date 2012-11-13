@@ -12,6 +12,6 @@
     <string name="wrkouthint">ie: Legs Workout</string>
     <string name="exercisename">Exercise Names:</string>
     <string name="exercisehint">ie: 20 Minutes of Biking</string>
-    <string name="newbutton">Add Another Exercise</string>
+    <string name="newbutton">Add+</string>
 
 </resources>
