@@ -17,7 +17,7 @@ public class WorkoutsActivity extends Activity {
 
 	EditText exerciseLabel, workoutName;
 	Button newExerciseButton; 
-	public static ArrayList <Workouts> workoutList = new ArrayList<Workouts>();
+	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,24 +66,23 @@ public class WorkoutsActivity extends Activity {
 		return true;
 	}
 }
-class Workouts {
+class Workout {
 
 	int workoutId;
 	boolean isFavorite;
 	String workoutTitle;
-	ArrayList<Exercises> exerciseList = new ArrayList<Exercises>();
+	ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
 
-	Workouts(int workoutId, String workoutTitle, boolean isFavorite) {
-		this.workoutId = workoutId;
+	Workout(String workoutTitle, boolean isFavorite) {
 		this.workoutTitle = workoutTitle;
 		this.isFavorite = isFavorite;
 	}
 }
-class Exercises {
+class Exercise {
 
 	String exerciseLabel;
 
-	Exercises(String exerciseLabel) {
+	Exercise(String exerciseLabel) {
 		this.exerciseLabel = exerciseLabel;
 	}
 }
