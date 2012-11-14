@@ -39,6 +39,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 	}
 
 	private View createNewEditText(String string) {
+		@SuppressWarnings("deprecation")
 		final LayoutParams lparams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		final EditText editText = new EditText(this);
 		editText.setLayoutParams(lparams);
