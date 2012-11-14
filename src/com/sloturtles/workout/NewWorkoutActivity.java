@@ -22,7 +22,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 	private LinearLayout mLayout;
 	private EditText mEditText;
 	private Button mButton;
-
+	List<EditText> excerciseList = new ArrayList<EditText>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,21 +33,20 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		mButton = (Button) findViewById(R.id.bNewExercise);
 		mButton.setOnClickListener(this);
 	}
-	
+
 	public void onClick(View v) {
-        mLayout.addView(createNewEditText(mEditText.getText().toString()));
-    }
+		mLayout.addView(createNewEditText(mEditText.getText().toString()));
+	}
 
 	private View createNewEditText(String string) {
-		 final LayoutParams lparams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		 final EditText editText = new EditText(this);
-		 editText.setLayoutParams(lparams);
-		 List<EditText> list = new ArrayList<EditText>();
-		 EditText toAdd = new EditText(this);
-		 list.add(toAdd);
-		 return editText;
+		final LayoutParams lparams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+		final EditText editText = new EditText(this);
+		editText.setLayoutParams(lparams);
+		EditText toAdd = new EditText(this);
+		excerciseList.add(toAdd);
+		return editText;
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_newworkout, menu);
@@ -74,7 +73,11 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		EditText etWorkoutName;
 		etWorkoutName = (EditText) findViewById(R.id.etWorkoutName);
 		sWorkoutName = etWorkoutName.getText().toString();
-		WorkoutsActivity.workoutList.add(new Workouts(001, sWorkoutName, false));
+		WorkoutsActivity.workoutList.add(new Workout(sWorkoutName, false));
+		for(int x = 0; x < excerciseList.size();x++){
+			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
+			WorkoutsActivity.workoutList.get(WorkoutsActivity.workoutList.size()-1).exerciseList.add(blah);
+		}
 		return sWorkoutName;
 	}
 }
