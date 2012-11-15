@@ -1,14 +1,11 @@
 package com.sloturtles.workout;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +37,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		mEditText2 = (EditText) findViewById(R.id.etExerciseLabel);
 		mButton = (Button) findViewById(R.id.bNewExercise);
 		mButton.setOnClickListener(this);
+		excerciseList.add(mEditText2);
 	}
 
 	public void onClick(View v) {
@@ -51,8 +49,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		final LayoutParams lparams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		final EditText editText = new EditText(this);
 		editText.setLayoutParams(lparams);
-		EditText toAdd = new EditText(this);
-		excerciseList.add(toAdd);
+		excerciseList.add(editText);
 		return editText;
 	}
 
@@ -85,29 +82,30 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		for(int x = 0; x < excerciseList.size();x++){
 			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 			WorkoutsActivity.workoutList.get(WorkoutsActivity.workoutList.size()-1).exerciseList.add(blah);
-			Toast.makeText(this, mEditText2.getText().toString(), Toast.LENGTH_SHORT)
-			.show();
 		}
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
-		Set<Workout> dbset = new HashSet<Workout>(WorkoutsActivity.workoutList);
 		SharedPreferences.Editor spEditor = sp.edit();
-		//workouts
+
 		String workoutNames = "";
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			workoutNames += "+" + WorkoutsActivity.workoutList.get(x).workoutTitle;
 		
-		//exercises
 		String exerciseNames = "";
-		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++){
-			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++){
+		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
+			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++)
 				exerciseNames += "+" + WorkoutsActivity.workoutList.get(x).exerciseList.get(y).exerciseLabel;
-			}
-		}
-		
+
 		spEditor.putString("workoutTag", workoutNames);
 		spEditor.putString("exerciseTag", exerciseNames);
+		
+		//debug
+		toast(workoutNames);
+		toast(exerciseNames);
 		spEditor.commit();
 	}
 	
+	//debug
+	public void toast(String message){
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	}
 }
-
