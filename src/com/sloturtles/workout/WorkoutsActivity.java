@@ -67,8 +67,6 @@ public class WorkoutsActivity extends Activity {
 	}
 }
 
-//clay is cool
-
 class Workout {
 
 	int workoutId;
