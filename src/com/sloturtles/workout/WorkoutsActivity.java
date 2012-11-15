@@ -14,7 +14,6 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 public class WorkoutsActivity extends Activity {
-
 	EditText exerciseLabel, workoutName;
 	Button newExerciseButton; 
 	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
@@ -51,24 +50,23 @@ public class WorkoutsActivity extends Activity {
 		inflater.inflate(R.menu.activity_workouts, menu);
 		return true;
 	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menuitem1:
-			Intent i = new Intent(this, NewWorkoutActivity.class);
-			startActivity(i);
-			break;
-
-		default:
-			break;
+			case R.id.menuitem1:
+				Intent i = new Intent(this, NewWorkoutActivity.class);
+				startActivity(i);
+				break;
+	
+			default:
+				break;
 		}
-
 		return true;
 	}
 }
 
 class Workout {
-
 	int workoutId;
 	boolean isFavorite;
 	String workoutTitle;
@@ -80,7 +78,6 @@ class Workout {
 	}
 }
 class Exercise {
-
 	String exerciseLabel;
 
 	Exercise(String exerciseLabel) {

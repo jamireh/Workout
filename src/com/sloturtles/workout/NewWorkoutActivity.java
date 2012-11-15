@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 
 public class NewWorkoutActivity extends Activity implements OnClickListener {
-
 	String sWorkoutName;
 	private LinearLayout mLayout;
 	private EditText mEditText;
@@ -58,19 +57,18 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.activity_newworkout, menu);
 		return true;
 	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menuitem2:
-			saveWorkout();
-			sWorkoutName = "";
-			finish();
-			break;
-
-		default:
-			break;
+			case R.id.menuitem2:
+				saveWorkout();
+				sWorkoutName = "";
+				finish();
+				break;
+			default:
+				break;
 		}
-
 		return true;
 	}
 
@@ -89,7 +87,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		String workoutNames = "";
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			workoutNames += "+" + WorkoutsActivity.workoutList.get(x).workoutTitle;
-		
+
 		String exerciseNames = "";
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++)
@@ -97,13 +95,14 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 
 		spEditor.putString("workoutTag", workoutNames);
 		spEditor.putString("exerciseTag", exerciseNames);
-		
+
 		//debug
 		toast(workoutNames);
 		toast(exerciseNames);
+
 		spEditor.commit();
 	}
-	
+
 	//debug
 	public void toast(String message){
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
