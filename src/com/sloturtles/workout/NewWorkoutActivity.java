@@ -67,6 +67,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		case R.id.menuitem2:
 			saveWorkout();
 			sWorkoutName = "";
+			WorkoutsActivity.superScreen = 1;
 			finish();
 			break;
 		default:
@@ -80,6 +81,7 @@ public void saveWorkout() {
 	etWorkoutName = (EditText) findViewById(R.id.etWorkoutName);
 	sWorkoutName = etWorkoutName.getText().toString();
 	WorkoutsActivity.workoutList.add(new Workout(sWorkoutName, false));
+	//WorkoutsActivity.lvWorkoutList.add(sWorkoutName);
 	for(int x = 0; x < excerciseList.size();x++){
 		Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 		WorkoutsActivity.workoutList.get(WorkoutsActivity.workoutList.size()-1).exerciseList.add(blah);
@@ -87,14 +89,15 @@ public void saveWorkout() {
 	SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 	SharedPreferences.Editor spEditor = sp.edit();
 
-	String workoutNames = "";
+	String workoutNames = sp.getString("workoutTag", "");
 	for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
-		workoutNames += "+" + WorkoutsActivity.workoutList.get(x).workoutTitle;
+		workoutNames += WorkoutsActivity.workoutList.get(x).workoutTitle + "+";
 
 	String exerciseNames = "";
+	exerciseNames = mEditText2.getText().toString() + "+";
 	for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 		for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++)
-			exerciseNames += "+" + WorkoutsActivity.workoutList.get(x).exerciseList.get(y).exerciseLabel;
+			exerciseNames += WorkoutsActivity.workoutList.get(x).exerciseList.get(y).exerciseLabel + "+";
 
 	spEditor.putString("workoutTag", workoutNames);
 	spEditor.putString("exerciseTag", exerciseNames);

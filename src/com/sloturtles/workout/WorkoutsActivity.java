@@ -1,10 +1,13 @@
 package com.sloturtles.workout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import android.R.string;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,15 +17,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
 public class WorkoutsActivity extends Activity {
 	EditText exerciseLabel, workoutName;
 	Button newExerciseButton; 
 	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
-	List<String> testList = new ArrayList<String>();
-	public int superScreen; 
+	public static List<String> lvWorkoutList = new ArrayList<String>();
+	public static int superScreen; 
 	public ListView lvWorkouts;
+	public String STORE_PREFERENCES = "StorePrefs";
+
+
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,8 @@ public class WorkoutsActivity extends Activity {
 		specs.setIndicator("Progress");
 		th.addTab(specs);
 		
-		setupAdapters();
+		fromNewWorkoutActivity();
+
 	}
 
 	@Override
@@ -58,33 +67,40 @@ public class WorkoutsActivity extends Activity {
 		inflater.inflate(R.menu.activity_workouts, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menuitem1:
-				Intent i = new Intent(this, NewWorkoutActivity.class);
-				startActivity(i);
-				break;
-	
-			default:
-				break;
+		case R.id.menuitem1:
+			Intent i = new Intent(this, NewWorkoutActivity.class);
+			startActivity(i);
+			break;
+
+		default:
+			break;
 		}
 		return true;
 	}
-	
+
 	private void setupAdapters() {
 		lvWorkouts = (ListView) findViewById(R.id.Workouts);
-		testList.add("This is a test");
-		ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testList);
+		loadWorkout();
+		ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvWorkoutList);
 		lvWorkouts.setAdapter(lvAdapter);
-		
+
 	}
-	
+
+	private void loadWorkout() {
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
+		String longWorkoutTag = sp.getString("workoutTag", "");
+		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
+	}
+
 	//onResume runs whenever the screen is returned to from another screen. The same function can't run if returning 
 	//from NewWorkout or from StartWorkout so the 'if' statements help determine which method to run based on where the app just 
 	//came from. 1 = NewWorkoutActivity 2 = StartWorkoutActivity 3 = EditWorkoutActivity
-	/*public void onResume() {
+	public void onResume() {
+		super.onResume();
 		if(superScreen == 1) {
 			fromNewWorkoutActivity();
 		} 
@@ -94,23 +110,29 @@ public class WorkoutsActivity extends Activity {
 		if(superScreen == 3) {
 			fromEditWorkoutActivity();
 		}
-	}*/
+	}
+
 
 	public void fromNewWorkoutActivity() {
-		//TODO Auto-generated method stub
-		
+		loadWorkout();
+		setupAdapters();
+
 	}
-	
+
 	private void fromStartWorkoutActivity() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	private void fromEditWorkoutActivity() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
+	public void debugToast(String message){
+		Toast.makeText(this, "+" + message + "+", Toast.LENGTH_SHORT).show();
+	}
+
 }
 
 
