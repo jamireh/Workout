@@ -26,6 +26,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
+                <ListView
+                    android:id="@+id/Workouts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </ListView>
+
                 <LinearLayout
                     android:id="@+id/Favorites"
                     android:layout_width="match_parent"
@@ -39,18 +45,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/Workouts"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv2" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/Progress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
@@ -60,7 +54,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="269dp" />
                 </LinearLayout>
-
             </FrameLayout>
         </LinearLayout>
     </TabHost>

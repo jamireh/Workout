@@ -1,6 +1,7 @@
 package com.sloturtles.workout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -17,6 +20,9 @@ public class WorkoutsActivity extends Activity {
 	EditText exerciseLabel, workoutName;
 	Button newExerciseButton; 
 	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
+	List<String> testList = new ArrayList<String>();
+	public int superScreen; 
+	public ListView lvWorkouts;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,8 @@ public class WorkoutsActivity extends Activity {
 		specs.setContent(R.id.Progress);
 		specs.setIndicator("Progress");
 		th.addTab(specs);
+		
+		setupAdapters();
 	}
 
 	@Override
@@ -64,7 +72,48 @@ public class WorkoutsActivity extends Activity {
 		}
 		return true;
 	}
+	
+	private void setupAdapters() {
+		lvWorkouts = (ListView) findViewById(R.id.Workouts);
+		testList.add("This is a test");
+		ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testList);
+		lvWorkouts.setAdapter(lvAdapter);
+		
+	}
+	
+	//onResume runs whenever the screen is returned to from another screen. The same function can't run if returning 
+	//from NewWorkout or from StartWorkout so the 'if' statements help determine which method to run based on where the app just 
+	//came from. 1 = NewWorkoutActivity 2 = StartWorkoutActivity 3 = EditWorkoutActivity
+	/*public void onResume() {
+		if(superScreen == 1) {
+			fromNewWorkoutActivity();
+		} 
+		if(superScreen == 2) {
+			fromStartWorkoutActivity();
+		} 
+		if(superScreen == 3) {
+			fromEditWorkoutActivity();
+		}
+	}*/
+
+	public void fromNewWorkoutActivity() {
+		//TODO Auto-generated method stub
+		
+	}
+	
+	private void fromStartWorkoutActivity() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void fromEditWorkoutActivity() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
+
+
 
 class Workout {
 	int workoutId;
