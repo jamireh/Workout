@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Workout!</string>
@@ -13,5 +14,6 @@
     <string name="exercisename">Exercise Names:</string>
     <string name="exercisehint">ie: 20 Minutes of Biking</string>
     <string name="newbutton">Add+</string>
+    <string name="title_activity_start_workout">StartWorkoutActivity</string>
 
 </resources>

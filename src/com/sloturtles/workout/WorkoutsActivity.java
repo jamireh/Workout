@@ -4,23 +4,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.R.string;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
-public class WorkoutsActivity extends Activity {
+public class WorkoutsActivity extends Activity implements OnItemClickListener {
+	//Global Variable Declaration/Initialization
 	EditText exerciseLabel, workoutName;
 	Button newExerciseButton; 
 	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
@@ -29,18 +35,19 @@ public class WorkoutsActivity extends Activity {
 	public ListView lvWorkouts;
 	public String STORE_PREFERENCES = "StorePrefs";
 
-
-
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
+		//Usual OnCreate Stuff
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_workouts);
 
+		//Assign Java variables to UI elements
 		workoutName = (EditText) findViewById(R.id.etWorkoutName);
 		exerciseLabel = (EditText) findViewById(R.id.etExerciseLabel); 
 		newExerciseButton =  (Button) findViewById(R.id.bNewExercise);
 
+		//Setup Tabs
 		TabHost th = (TabHost)findViewById(R.id.tabhost);
 		th.setup();
 		TabSpec specs;
@@ -56,8 +63,15 @@ public class WorkoutsActivity extends Activity {
 		specs.setContent(R.id.Progress);
 		specs.setIndicator("Progress");
 		th.addTab(specs);
+
+		//Load data from SharedPreferences into ListView
+		setupAdapters();
+
+		//Enable OnItemClickListener on items in ListView
+		lvWorkouts.setOnItemClickListener(this);
 		
-		fromNewWorkoutActivity();
+		//Enable ContextMenu on items in ListView
+		registerForContextMenu(lvWorkouts);
 
 	}
 
@@ -68,6 +82,7 @@ public class WorkoutsActivity extends Activity {
 		return true;
 	}
 
+	//"New" Button
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -82,6 +97,7 @@ public class WorkoutsActivity extends Activity {
 		return true;
 	}
 
+	//Loads lvWorkoutList into ListView
 	private void setupAdapters() {
 		lvWorkouts = (ListView) findViewById(R.id.Workouts);
 		loadWorkout();
@@ -90,8 +106,10 @@ public class WorkoutsActivity extends Activity {
 
 	}
 
+	//Takes string from SharedPreferences, splits it into individual entries, and then loads it into an ArrayList (lvWorkoutList) 
+	//to load into ListView
 	private void loadWorkout() {
-		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
 		String longWorkoutTag = sp.getString("workoutTag", "");
 		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
 	}
@@ -112,31 +130,52 @@ public class WorkoutsActivity extends Activity {
 		}
 	}
 
-
+	//onResume method to run if coming back from NewWorkoutActivity
 	public void fromNewWorkoutActivity() {
-		loadWorkout();
 		setupAdapters();
-
 	}
 
+	//onResume method to run if coming back from StartWorkoutActivity
 	private void fromStartWorkoutActivity() {
 		// TODO Auto-generated method stub
 
 	}
 
+	//onResume method to run if coming back EditWorkoutActivity
 	private void fromEditWorkoutActivity() {
 		// TODO Auto-generated method stub
 
 	}
 
+	//Creation of ContextMenu for "Edit", "Delete", and "Favorite" options
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.setHeaderTitle("Choose to...");
+		menu.add(0, v.getId(), 0, "Edit Workout"); 
+		menu.add(0, v.getId(), 0, "Delete Workout");
+		menu.add(0, v.getId(), 0, "Add to Favorites");
+	}
+	
+	//Method to run when an item in ListView is clicked
+	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+		String item = ((TextView) view).getText().toString();
+        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
+        
+		Intent i = new Intent(this, StartWorkoutActivity.class);
+		i.putExtra("itemName", item);
+		startActivity(i);
+	}
+
+	//Debug Toast Notification for strings
 	public void debugToast(String message){
 		Toast.makeText(this, "+" + message + "+", Toast.LENGTH_SHORT).show();
 	}
 
+
 }
 
 
-
+//Class declarations for Workouts & Exercises
 class Workout {
 	int workoutId;
 	boolean isFavorite;
