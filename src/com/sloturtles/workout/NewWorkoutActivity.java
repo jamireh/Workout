@@ -109,9 +109,9 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		spEditor.putString("exerciseTag", exerciseNames);
 
 		//debug
-		//toast(workoutNames);
-		//toast(exerciseNames);
-		//toast(sp.getString("exerciseTag", exerciseNames));
+		toast(workoutNames);
+		toast(exerciseNames);
+
 
 		spEditor.commit();
 	}

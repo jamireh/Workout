@@ -111,7 +111,6 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	private void loadWorkout() {
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 		String longWorkoutTag = sp.getString("workoutTag", "");
-		debugToast(longWorkoutTag);
 		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
 		
 		
