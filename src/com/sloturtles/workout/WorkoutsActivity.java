@@ -109,9 +109,12 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	//Takes string from SharedPreferences, splits it into individual entries, and then loads it into an ArrayList (lvWorkoutList) 
 	//to load into ListView
 	private void loadWorkout() {
-		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 		String longWorkoutTag = sp.getString("workoutTag", "");
+		debugToast(longWorkoutTag);
 		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
+		
+		
 	}
 
 	//onResume runs whenever the screen is returned to from another screen. The same function can't run if returning 
@@ -169,7 +172,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 	//Debug Toast Notification for strings
 	public void debugToast(String message){
-		Toast.makeText(this, "+" + message + "+", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
 

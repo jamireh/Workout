@@ -91,26 +91,27 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 			WorkoutsActivity.workoutList.get(WorkoutsActivity.workoutList.size()-1).exerciseList.add(blah);
 		}
-		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 		SharedPreferences.Editor spEditor = sp.edit();
 
-		String workoutNames = ""; 
+		String workoutNames = sp.getString("workoutTag", "");
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			workoutNames += WorkoutsActivity.workoutList.get(x).workoutTitle + "+";
-
+		
 		String exerciseNames = "";
 		exerciseNames = mEditText2.getText().toString() + "+";
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++)
 				exerciseNames += WorkoutsActivity.workoutList.get(x).exerciseList.get(y).exerciseLabel + "+";
+		
 
 		spEditor.putString("workoutTag", workoutNames);
 		spEditor.putString("exerciseTag", exerciseNames);
 
 		//debug
-		toast(workoutNames);
-		toast(exerciseNames);
-
+		//toast(workoutNames);
+		//toast(exerciseNames);
+		//toast(sp.getString("exerciseTag", exerciseNames));
 
 		spEditor.commit();
 	}
