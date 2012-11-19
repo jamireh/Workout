@@ -132,6 +132,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 	//onResume method to run if coming back from NewWorkoutActivity
 	public void fromNewWorkoutActivity() {
+		loadWorkout();
 		setupAdapters();
 	}
 

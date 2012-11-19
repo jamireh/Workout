@@ -87,15 +87,14 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		etWorkoutName = (EditText) findViewById(R.id.etWorkoutName);
 		sWorkoutName = etWorkoutName.getText().toString();
 		WorkoutsActivity.workoutList.add(new Workout(sWorkoutName, false));
-		//WorkoutsActivity.lvWorkoutList.add(sWorkoutName);
-		for(int x = 0; x < excerciseList.size();x++){
+		for(int x = 0; x < excerciseList.size();x++) {
 			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 			WorkoutsActivity.workoutList.get(WorkoutsActivity.workoutList.size()-1).exerciseList.add(blah);
 		}
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
 		SharedPreferences.Editor spEditor = sp.edit();
 
-		String workoutNames = sp.getString("workoutTag", "");
+		String workoutNames = ""; 
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			workoutNames += WorkoutsActivity.workoutList.get(x).workoutTitle + "+";
 
@@ -111,6 +110,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		//debug
 		toast(workoutNames);
 		toast(exerciseNames);
+
 
 		spEditor.commit();
 	}
