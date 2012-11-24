@@ -9,8 +9,8 @@
         android:id="@+id/tvNewWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
         android:text="@string/create"
+        style="@style/sectionHeader"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -18,6 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/workoutname"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        style="?android:attr/listSeparatorTextViewStyle"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -53,6 +56,7 @@
             android:layout_alignBaseline="@+id/bNewExercise"
             android:layout_alignBottom="@+id/bNewExercise"
             android:layout_alignParentLeft="true"
+            style="?android:attr/listSeparatorTextViewStyle"
             android:text="@string/exercisename"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

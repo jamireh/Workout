@@ -15,14 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WorkoutsActivity extends Activity implements OnItemClickListener {
@@ -31,8 +32,11 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	Button newExerciseButton; 
 	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
 	public static List<String> lvWorkoutList = new ArrayList<String>();
+	public static List<String> lvFavoritesList = new ArrayList<String>();
 	public static int superScreen; 
+	public String itemSelected;
 	public ListView lvWorkouts;
+	public ListView lvFavorites;
 	public String STORE_PREFERENCES = "StorePrefs";
 
 	@Override
@@ -69,9 +73,11 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 		//Enable OnItemClickListener on items in ListView
 		lvWorkouts.setOnItemClickListener(this);
+		lvFavorites.setOnItemClickListener(this);
 		
 		//Enable ContextMenu on items in ListView
 		registerForContextMenu(lvWorkouts);
+		registerForContextMenu(lvFavorites);
 
 	}
 
@@ -99,11 +105,17 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 	//Loads lvWorkoutList into ListView
 	private void setupAdapters() {
+		
+		//Workouts
 		lvWorkouts = (ListView) findViewById(R.id.Workouts);
 		loadWorkout();
-		ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvWorkoutList);
-		lvWorkouts.setAdapter(lvAdapter);
-
+		ArrayAdapter<String> lvWorkoutAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvWorkoutList);
+		lvWorkouts.setAdapter(lvWorkoutAdapter);
+		
+		//Favorites
+		lvFavorites = (ListView) findViewById(R.id.Favorites);
+		ArrayAdapter<String> lvFavoritesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvFavoritesList);
+		lvFavorites.setAdapter(lvFavoritesAdapter);
 	}
 
 	//Takes string from SharedPreferences, splits it into individual entries, and then loads it into an ArrayList (lvWorkoutList) 
@@ -161,12 +173,48 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	
 	//Method to run when an item in ListView is clicked
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
-		String item = ((TextView) view).getText().toString();
-        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
+		itemSelected = ((TextView) view).getText().toString();
+        Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show();
         
 		Intent i = new Intent(this, StartWorkoutActivity.class);
-		i.putExtra("itemName", item);
+		i.putExtra("itemName", itemSelected);
 		startActivity(i);
+	}
+	
+	//Enables function on the ContextMenu
+	public boolean onContextItemSelected(MenuItem item) {
+		
+	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    int index = info.position;
+	    View view = info.targetView;
+
+		
+		if(item.getTitle() == "Edit Workout") {
+			editWorkout();
+		} else if(item.getTitle() == "Delete Workout") {
+			deleteWorkout();
+		} else if(item.getTitle() == "Add to Favorites") {
+			addToFavorites(index);
+		} else {
+			return false;
+		}
+		return true;
+	}
+	
+	//Individual functions for each ContextMenu Entry
+	private void addToFavorites(int index) {
+		lvFavoritesList.add(lvWorkoutList.get(index));
+		setupAdapters();
+	}
+
+	private void deleteWorkout() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editWorkout() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	//Debug Toast Notification for strings
