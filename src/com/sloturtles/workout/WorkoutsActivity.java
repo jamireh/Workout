@@ -125,8 +125,10 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 		String longWorkoutTag = sp.getString("workoutTag", "");
 		String longExerciseTag = sp.getString("exerciseTag", "");
+		String longFavoriteTag = sp.getString("favoriteTag", "");
 		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
 		lvExerciseList = new ArrayList<String>(Arrays.asList(longExerciseTag.split("[-]")));
+		lvFavoritesList = new ArrayList<String>(Arrays.asList(longFavoriteTag.split("[+]")));
 		//array list of arrays, the upper is based on workouts, inner is exercises tied to that workout
 		//loading needs to create new exercise and workout variables to be put in the master array so it saves/loads the workouts correctly
 		workoutList.clear();
@@ -144,6 +146,15 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 				}
 			}
 		}catch(Exception e){}
+
+		//loading favorites from SharedPreferences
+		for(int z = 0;z < workoutList.size();z++) {
+			for(int i = 0;i < lvFavoritesList.size();i++){ 
+				if(lvFavoritesList.get(i).equals(workoutList.get(z).workoutTitle)) {
+					workoutList.get(z).isFavorite = true;
+				}
+			}
+		}
 	}
 
 	public void toast(String message){
@@ -224,35 +235,52 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	}
 
 	//Individual functions for each ContextMenu Entry
-	private void addToFavorites(int index) {
-		lvFavoritesList.add(lvWorkoutList.get(index));
+	public void addToFavorites(int index) {
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE);
+		String favoriteId = lvWorkoutList.get(index);
+		for(int i = 0;i<workoutList.size();i++) {
+			if(favoriteId.equals(workoutList.get(i).workoutTitle)) {
+				workoutList.get(i).isFavorite = true;
+			}
+		}
+		String favoritesTag = "";
+		for(int i = 0;i<workoutList.size();i++) {
+			if(workoutList.get(i).isFavorite) {
+				favoritesTag += workoutList.get(i).workoutTitle + "+";
+			}
+		}
+
+		SharedPreferences.Editor spEditor = sp.edit();
+		spEditor.putString("favoriteTag", favoritesTag);
+		spEditor.commit();
+
 		setupAdapters();
 	}
 
 	private void deleteWorkout(int index) {
 		String tempExerciseNames = "";
-		
+
 		for(int y = 0; y < workoutList.get(index).exerciseList.size(); y++){
 			tempExerciseNames += workoutList.get(index).exerciseList.get(y).exerciseLabel + "+";
 		}
 		tempExerciseNames += "-";
-		
+
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
-		
+
 		String tempLongWorkoutTag = sp.getString("workoutTag", "");
 		String tempLongExerciseTag = sp.getString("exerciseTag", "");
 		tempLongWorkoutTag = tempLongWorkoutTag.replace(lvWorkoutList.get(index) + "+", "");
 		tempLongExerciseTag = tempLongExerciseTag.replace(tempExerciseNames, "");
-		
-		
+
+
 		SharedPreferences.Editor spEditor = sp.edit();
 		spEditor.putString("workoutTag", tempLongWorkoutTag);
 		spEditor.putString("exerciseTag", tempLongExerciseTag);
-		
+
 		spEditor.commit();
-		
+
 		setupAdapters();
-		
+
 	}
 
 	private void editWorkout() {
