@@ -99,9 +99,12 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 			workoutNames += WorkoutsActivity.workoutList.get(x).workoutTitle + "+";
 		
 		String exerciseNames = "";
-		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
-			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++)
+		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++){
+			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++){
 				exerciseNames += WorkoutsActivity.workoutList.get(x).exerciseList.get(y).exerciseLabel + "+";
+			}
+			exerciseNames += "-";
+		}
 		
 
 		spEditor.putString("workoutTag", workoutNames);
