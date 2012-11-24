@@ -140,7 +140,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 					List<String> temp = Arrays.asList(lvExerciseList.get(x).split("[+]"));
 					for(int y = 0; y < temp.size();y++)
 						workoutList.get(x).exerciseList.add(new Exercise(temp.get(y)));
-					toast("ex list " + Integer.toString(workoutList.get(x).exerciseList.size()));
+					//toast("ex list " + Integer.toString(workoutList.get(x).exerciseList.size()));
 				}
 			}
 		}catch(Exception e){}
@@ -214,7 +214,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		if(item.getTitle() == "Edit Workout") {
 			editWorkout();
 		} else if(item.getTitle() == "Delete Workout") {
-			deleteWorkout();
+			deleteWorkout(index);
 		} else if(item.getTitle() == "Add to Favorites") {
 			addToFavorites(index);
 		} else {
@@ -229,9 +229,30 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		setupAdapters();
 	}
 
-	private void deleteWorkout() {
-		// TODO Auto-generated method stub
-
+	private void deleteWorkout(int index) {
+		String tempExerciseNames = "";
+		
+		for(int y = 0; y < workoutList.get(index).exerciseList.size(); y++){
+			tempExerciseNames += workoutList.get(index).exerciseList.get(y).exerciseLabel + "+";
+		}
+		tempExerciseNames += "-";
+		
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
+		
+		String tempLongWorkoutTag = sp.getString("workoutTag", "");
+		String tempLongExerciseTag = sp.getString("exerciseTag", "");
+		tempLongWorkoutTag = tempLongWorkoutTag.replace(lvWorkoutList.get(index) + "+", "");
+		tempLongExerciseTag = tempLongExerciseTag.replace(tempExerciseNames, "");
+		
+		
+		SharedPreferences.Editor spEditor = sp.edit();
+		spEditor.putString("workoutTag", tempLongWorkoutTag);
+		spEditor.putString("exerciseTag", tempLongExerciseTag);
+		
+		spEditor.commit();
+		
+		setupAdapters();
+		
 	}
 
 	private void editWorkout() {
