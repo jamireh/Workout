@@ -32,6 +32,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	Button newExerciseButton; 
 	public static ArrayList <Workout> workoutList = new ArrayList<Workout>();
 	public static List<String> lvWorkoutList = new ArrayList<String>();
+	public static List<String> lvExerciseList = new ArrayList<String>();
 	public static List<String> lvFavoritesList = new ArrayList<String>();
 	public static int superScreen; 
 	public String itemSelected;
@@ -41,7 +42,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		//Usual OnCreate Stuff
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_workouts);
@@ -74,7 +75,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		//Enable OnItemClickListener on items in ListView
 		lvWorkouts.setOnItemClickListener(this);
 		lvFavorites.setOnItemClickListener(this);
-		
+
 		//Enable ContextMenu on items in ListView
 		registerForContextMenu(lvWorkouts);
 		registerForContextMenu(lvFavorites);
@@ -105,13 +106,13 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 	//Loads lvWorkoutList into ListView
 	private void setupAdapters() {
-		
+
 		//Workouts
 		lvWorkouts = (ListView) findViewById(R.id.Workouts);
 		loadWorkout();
 		ArrayAdapter<String> lvWorkoutAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvWorkoutList);
 		lvWorkouts.setAdapter(lvWorkoutAdapter);
-		
+
 		//Favorites
 		lvFavorites = (ListView) findViewById(R.id.Favorites);
 		ArrayAdapter<String> lvFavoritesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lvFavoritesList);
@@ -123,9 +124,33 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	private void loadWorkout() {
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 		String longWorkoutTag = sp.getString("workoutTag", "");
+		String longExerciseTag = sp.getString("exerciseTag", "");
 		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
-		
-		
+		lvExerciseList = new ArrayList<String>(Arrays.asList(longExerciseTag.split("[-]")));
+		//array list of arrays, the upper is based on workouts, inner is exercises tied to that workout
+		toast("lv wklist " + Integer.toString(lvWorkoutList.size()));
+		toast(lvWorkoutList.toString());
+		//loading needs to create new exercise and workout variables to be put in the master array so it saves/loads the workouts correctly
+		for(int x = 0; x < lvWorkoutList.size();x++)
+			if(lvWorkoutList.get(x).length() > 2)
+				workoutList.add(new Workout(lvWorkoutList.get(x), false));
+
+		toast("wklist " + Integer.toString(workoutList.size()));
+		toast("lv ex list " + Integer.toString(lvExerciseList.size()));
+		try{
+			for(int x = 0; x < workoutList.size();x++){
+				if(lvExerciseList.get(x).length() > 2){
+					List<String> temp = Arrays.asList(lvExerciseList.get(x).split("[+]"));
+					for(int y = 0; y < temp.size();y++)
+						workoutList.get(x).exerciseList.add(new Exercise(temp.get(y)));
+					toast("ex list " + Integer.toString(workoutList.get(x).exerciseList.size()));
+				}
+			}
+		}catch(Exception e){}
+	}
+
+	public void toast(String message){
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
 	//onResume runs whenever the screen is returned to from another screen. The same function can't run if returning 
@@ -170,25 +195,25 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		menu.add(0, v.getId(), 0, "Delete Workout");
 		menu.add(0, v.getId(), 0, "Add to Favorites");
 	}
-	
+
 	//Method to run when an item in ListView is clicked
 	public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
 		itemSelected = ((TextView) view).getText().toString();
-        Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show();
-        
+		Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show();
+
 		Intent i = new Intent(this, StartWorkoutActivity.class);
 		i.putExtra("itemName", itemSelected);
 		startActivity(i);
 	}
-	
+
 	//Enables function on the ContextMenu
 	public boolean onContextItemSelected(MenuItem item) {
-		
-	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	    int index = info.position;
-	    View view = info.targetView;
 
-		
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		int index = info.position;
+		View view = info.targetView;
+
+
 		if(item.getTitle() == "Edit Workout") {
 			editWorkout();
 		} else if(item.getTitle() == "Delete Workout") {
@@ -200,7 +225,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		}
 		return true;
 	}
-	
+
 	//Individual functions for each ContextMenu Entry
 	private void addToFavorites(int index) {
 		lvFavoritesList.add(lvWorkoutList.get(index));
@@ -209,12 +234,12 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 	private void deleteWorkout() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void editWorkout() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	//Debug Toast Notification for strings
@@ -245,4 +270,3 @@ class Exercise {
 		this.exerciseLabel = exerciseLabel;
 	}
 }
-
