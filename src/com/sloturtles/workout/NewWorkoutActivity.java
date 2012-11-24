@@ -41,7 +41,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		mEditText2 = (EditText) findViewById(R.id.etExerciseLabel);
 		mButton = (Button) findViewById(R.id.bNewExercise);
 		mButton.setOnClickListener(this);
-
+		excerciseList.add(mEditText2);
 	}
 
 	@Override
@@ -94,12 +94,11 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 		SharedPreferences.Editor spEditor = sp.edit();
 
-		String workoutNames = sp.getString("workoutTag", "");
+		String workoutNames = "";
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			workoutNames += WorkoutsActivity.workoutList.get(x).workoutTitle + "+";
 		
 		String exerciseNames = "";
-		exerciseNames = mEditText2.getText().toString() + "+";
 		for(int x = 0; x < WorkoutsActivity.workoutList.size();x++)
 			for(int y = 0; y < WorkoutsActivity.workoutList.get(x).exerciseList.size(); y++)
 				exerciseNames += WorkoutsActivity.workoutList.get(x).exerciseList.get(y).exerciseLabel + "+";

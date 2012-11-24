@@ -128,15 +128,12 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		lvWorkoutList = new ArrayList<String>(Arrays.asList(longWorkoutTag.split("[+]")));
 		lvExerciseList = new ArrayList<String>(Arrays.asList(longExerciseTag.split("[-]")));
 		//array list of arrays, the upper is based on workouts, inner is exercises tied to that workout
-		toast("lv wklist " + Integer.toString(lvWorkoutList.size()));
-		toast(lvWorkoutList.toString());
 		//loading needs to create new exercise and workout variables to be put in the master array so it saves/loads the workouts correctly
+		workoutList.clear();
 		for(int x = 0; x < lvWorkoutList.size();x++)
 			if(lvWorkoutList.get(x).length() > 2)
 				workoutList.add(new Workout(lvWorkoutList.get(x), false));
 
-		toast("wklist " + Integer.toString(workoutList.size()));
-		toast("lv ex list " + Integer.toString(lvExerciseList.size()));
 		try{
 			for(int x = 0; x < workoutList.size();x++){
 				if(lvExerciseList.get(x).length() > 2){
