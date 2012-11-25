@@ -264,18 +264,22 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 			tempExerciseNames += workoutList.get(index).exerciseList.get(y).exerciseLabel + "+";
 		}
 		tempExerciseNames += "-";
+		
 
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 
 		String tempLongWorkoutTag = sp.getString("workoutTag", "");
 		String tempLongExerciseTag = sp.getString("exerciseTag", "");
+		String tempLongFavoritetag = sp.getString("favoriteTag", "");
 		tempLongWorkoutTag = tempLongWorkoutTag.replace(lvWorkoutList.get(index) + "+", "");
 		tempLongExerciseTag = tempLongExerciseTag.replace(tempExerciseNames, "");
+		tempLongFavoritetag = tempLongFavoritetag.replace(lvWorkoutList.get(index) + "+", "");
 
 
 		SharedPreferences.Editor spEditor = sp.edit();
 		spEditor.putString("workoutTag", tempLongWorkoutTag);
 		spEditor.putString("exerciseTag", tempLongExerciseTag);
+		spEditor.putString("favoriteTag", tempLongFavoritetag);
 
 		spEditor.commit();
 
