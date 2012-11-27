@@ -16,5 +16,6 @@
     <string name="newbutton">Add+</string>
     <string name="title_activity_start_workout">StartWorkoutActivity</string>
     <string name="bFinish">Done!</string>
+    <string name="tvEditWorkout">Edit Workout:</string>
 
 </resources>
