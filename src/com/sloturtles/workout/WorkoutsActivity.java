@@ -305,7 +305,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 class Workout {
 	int workoutId;
 	boolean isFavorite;
-	String workoutTitle;
+	String workoutTitle = "";
 	ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
 
 	Workout(String workoutTitle, boolean isFavorite) {
@@ -314,7 +314,7 @@ class Workout {
 	}
 }
 class Exercise {
-	String exerciseLabel;
+	String exerciseLabel = "";
 
 	Exercise(String exerciseLabel) {
 		this.exerciseLabel = exerciseLabel;

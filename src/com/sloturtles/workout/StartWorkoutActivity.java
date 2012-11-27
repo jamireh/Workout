@@ -23,10 +23,8 @@ public class StartWorkoutActivity extends Activity {
 	String globalItemName;
 	int workoutPosition;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		//Usual OnCreate Stuff
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_startworkout);
@@ -49,8 +47,6 @@ public class StartWorkoutActivity extends Activity {
 
 		//Execute function to populate the ListView
 		populateList();
-
-
 	}
 
 	@Override
@@ -80,8 +76,8 @@ public class StartWorkoutActivity extends Activity {
 	//Create dynamic EditTexts
 	public void populateList() {
 		for(int i = 0;i<WorkoutsActivity.workoutList.size();i++) {
-			if(WorkoutsActivity.workoutList.get(i).equals(globalItemName)) {
-				i = workoutPosition;	
+			if(WorkoutsActivity.workoutList.get(i).workoutTitle.equals(globalItemName)) {
+				workoutPosition = i;
 			}
 		}
 		for(int x = 0;x<WorkoutsActivity.workoutList.get(workoutPosition).exerciseList.size();x++) {

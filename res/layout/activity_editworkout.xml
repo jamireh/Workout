@@ -42,10 +42,24 @@
         android:text="@string/exercisename"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ListView
-        android:id="@+id/ListView1"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/etExerciseLabelEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/exercisehint" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

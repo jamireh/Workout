@@ -27,10 +27,8 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 	String sWorkoutName;
 	List<EditText> excerciseList = new ArrayList<EditText>();
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
 		//Usual OnCreate Stuff
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_newworkout);
@@ -106,14 +104,12 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 			exerciseNames += "-";
 		}
 		
-
 		spEditor.putString("workoutTag", workoutNames);
 		spEditor.putString("exerciseTag", exerciseNames);
 
 		//debug
 		toast(workoutNames);
 		toast(exerciseNames);
-
 
 		spEditor.commit();
 	}
