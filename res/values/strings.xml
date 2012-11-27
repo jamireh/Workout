@@ -15,5 +15,6 @@
     <string name="exercisehint">ie: 20 Minutes of Biking</string>
     <string name="newbutton">Add+</string>
     <string name="title_activity_start_workout">StartWorkoutActivity</string>
+    <string name="bFinish">Done!</string>
 
 </resources>

@@ -16,21 +16,23 @@ public final class R {
         public static final int section_header=0x7f020002;
     }
     public static final class id {
-        public static final int Favorites=0x7f07000c;
+        public static final int Favorites=0x7f07000e;
         public static final int LinearLayout1=0x7f070000;
         public static final int LinearLayout2=0x7f070008;
-        public static final int Progress=0x7f07000e;
+        public static final int ListView1=0x7f07000b;
+        public static final int Progress=0x7f070010;
         public static final int RelativeLayout1=0x7f070004;
-        public static final int Workouts=0x7f07000d;
+        public static final int Workouts=0x7f07000f;
+        public static final int bDone=0x7f07000c;
         public static final int bNewExercise=0x7f070005;
-        public static final int calendarView1=0x7f07000f;
+        public static final int calendarView1=0x7f070011;
         public static final int etExerciseLabel=0x7f070009;
         public static final int etWorkoutName=0x7f070003;
-        public static final int menu_settings=0x7f070011;
-        public static final int menuitem1=0x7f070012;
-        public static final int menuitem2=0x7f070010;
+        public static final int menu_settings=0x7f070013;
+        public static final int menuitem1=0x7f070014;
+        public static final int menuitem2=0x7f070012;
         public static final int scrollView1=0x7f070007;
-        public static final int tabhost=0x7f07000b;
+        public static final int tabhost=0x7f07000d;
         public static final int tvExerciseName=0x7f070006;
         public static final int tvItem=0x7f07000a;
         public static final int tvNewWorkout=0x7f070001;
@@ -48,6 +50,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050000;
+        public static final int bFinish=0x7f05000e;
         public static final int create=0x7f050007;
         public static final int exercisehint=0x7f05000b;
         public static final int exercisename=0x7f05000a;
