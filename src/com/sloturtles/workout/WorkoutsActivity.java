@@ -219,11 +219,10 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		int index = info.position;
-		View view = info.targetView;
 
 
 		if(item.getTitle() == "Edit Workout") {
-			editWorkout();
+			editWorkout(index);
 		} else if(item.getTitle() == "Delete Workout") {
 			deleteWorkout(index);
 		} else if(item.getTitle() == "Add to Favorites") {
@@ -232,6 +231,12 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 			return false;
 		}
 		return true;
+	}
+
+	private void editWorkout(int index) {
+		Intent i = new Intent(this, EditWorkoutActivity.class);
+		i.putExtra("itemName", lvWorkoutList.get(index));
+		startActivity(i);
 	}
 
 	//Individual functions for each ContextMenu Entry
@@ -284,11 +289,6 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		spEditor.commit();
 
 		setupAdapters();
-
-	}
-
-	private void editWorkout() {
-		// TODO Auto-generated method stub
 
 	}
 
