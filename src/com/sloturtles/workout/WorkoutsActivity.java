@@ -200,10 +200,18 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	//Creation of ContextMenu for "Edit", "Delete", and "Favorite" options
 	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.setHeaderTitle("Choose to...");
-		menu.add(0, v.getId(), 0, "Edit Workout"); 
-		menu.add(0, v.getId(), 0, "Delete Workout");
-		menu.add(0, v.getId(), 0, "Add to Favorites");
+		if(v == lvWorkouts) {
+			menu.setHeaderTitle("Choose to...");
+			menu.add(0, v.getId(), 0, "Edit Workout"); 
+			menu.add(0, v.getId(), 0, "Delete Workout");
+			menu.add(0, v.getId(), 0, "Add to Favorites");
+		}
+		if(v == lvFavorites) {
+			menu.setHeaderTitle("Choose to...");
+			menu.add(0, v.getId(), 0, "Edit Workout"); 
+			menu.add(0, v.getId(), 0, "Delete Workout");
+			menu.add(0, v.getId(), 0, "Remove from Favorites");
+		}
 	}
 
 	//Method to run when an item in ListView is clicked
@@ -229,6 +237,8 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 			deleteWorkout(index);
 		} else if(item.getTitle() == "Add to Favorites") {
 			addToFavorites(index);
+		} else if(item.getTitle() == "Remove from Favorites") {
+			removeFromFavorites(index);
 		} else {
 			return false;
 		}
@@ -265,6 +275,29 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		setupAdapters();
 	}
 
+	public void removeFromFavorites(int index) {
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE);
+		String favoriteId = lvWorkoutList.get(index);
+		for(int i = 0;i<workoutList.size();i++) {
+			if(favoriteId.equals(workoutList.get(i).workoutTitle)) {
+				workoutList.get(i).isFavorite = false;
+			}
+		}
+		String favoritesTag = "";
+		for(int i = 0;i<workoutList.size();i++) {
+			if(workoutList.get(i).isFavorite) {
+				favoritesTag += workoutList.get(i).workoutTitle + "+";
+			}
+		}
+
+		SharedPreferences.Editor spEditor = sp.edit();
+		spEditor.putString("favoriteTag", favoritesTag);
+		spEditor.commit();
+
+		setupAdapters();
+	}
+
+
 	private void deleteWorkout(int index) {
 		String tempExerciseNames = "";
 
@@ -272,7 +305,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 			tempExerciseNames += workoutList.get(index).exerciseList.get(y).exerciseLabel + "+";
 		}
 		tempExerciseNames += "-";
-		
+
 
 		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
 
