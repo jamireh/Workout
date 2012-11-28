@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="C:/Users/bryce/AppData/Local/Android/android-sdk/platforms/android-16/android.jar">
+	<classpathentry kind="lib" path="C:/android-sdk/platforms/android-16/android.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/C:/android-sdk/docs/reference"/>
 		</attributes>

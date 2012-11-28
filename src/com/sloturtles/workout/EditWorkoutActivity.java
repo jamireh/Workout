@@ -3,7 +3,6 @@ package com.sloturtles.workout;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -23,9 +22,12 @@ public class EditWorkoutActivity extends Activity {
 	EditText exerciseET;
 	String globalItemName;
 	int workoutPosition;
+	int index;
 	public String STORE_PREFERENCES = "StorePrefs";
 	String sWorkoutName;
 	List<EditText> excerciseList = new ArrayList<EditText>();
+	EditText etEditWorkoutName;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,18 +35,19 @@ public class EditWorkoutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_editworkout);
 		mLayout = (LinearLayout) findViewById(R.id.LinearLayoutEdit);
-		EditText etEditWorkoutName = (EditText) findViewById(R.id.etEditWorkoutName);
 		exerciseET = (EditText) findViewById(R.id.etExerciseLabelEdit);
+		etEditWorkoutName = (EditText) findViewById(R.id.etEditWorkoutName);
 		//Take the data passed into StartWorkoutActivity, convert it to String and assign it
 		//to the value of TextView
 		Bundle data = this.getIntent().getExtras();
 		String itemName = data.getString("itemName");
+		index = data.getInt("itemPosition");
 		etEditWorkoutName.setText(itemName);
 		globalItemName = itemName;
 		excerciseList.add(exerciseET);
 		populateList();
 	}
-	
+
 	private View createNewEditText(String string) {
 		@SuppressWarnings("deprecation")
 		final LayoutParams lparams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
@@ -93,16 +96,13 @@ public class EditWorkoutActivity extends Activity {
 
 	//Method for saving Workouts
 	public void saveWorkout() {
-		//remove the workout you are working on but remember index
-		int index = 0;
-		for(int i = 0;i<WorkoutsActivity.workoutList.size();i++) {
-			if(WorkoutsActivity.workoutList.get(i).workoutTitle.equals(globalItemName)) {
-				WorkoutsActivity.workoutList.add(i, new Workout(sWorkoutName, false));
-				WorkoutsActivity.workoutList.remove(i-1);
-				index = i;
-			}
-		}
+		//remove the workout you are working on and add a new one
+		sWorkoutName = etEditWorkoutName.getText().toString();
+		WorkoutsActivity.workoutList.add(new Workout(sWorkoutName, false));
+		WorkoutsActivity.workoutList.remove(index);
 		WorkoutsActivity.workoutList.get(index).exerciseList.clear();
+		
+		//old saveWorkout() code
 		for(int x = 0; x < excerciseList.size();x++) {
 			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 			WorkoutsActivity.workoutList.get(index).exerciseList.add(blah);

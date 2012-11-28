@@ -166,7 +166,9 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	//came from. 1 = NewWorkoutActivity 2 = StartWorkoutActivity 3 = EditWorkoutActivity
 	public void onResume() {
 		super.onResume();
-		if(superScreen == 1) {
+		loadWorkout();
+		setupAdapters();
+		/*if(superScreen == 1) {
 			fromNewWorkoutActivity();
 		} 
 		if(superScreen == 2) {
@@ -174,7 +176,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 		} 
 		if(superScreen == 3) {
 			fromEditWorkoutActivity();
-		}
+		}*/
 	}
 
 	//onResume method to run if coming back from NewWorkoutActivity
@@ -236,6 +238,7 @@ public class WorkoutsActivity extends Activity implements OnItemClickListener {
 	private void editWorkout(int index) {
 		Intent i = new Intent(this, EditWorkoutActivity.class);
 		i.putExtra("itemName", lvWorkoutList.get(index));
+		i.putExtra("itemPosition", index);
 		startActivity(i);
 	}
 
