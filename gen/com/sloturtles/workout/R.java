@@ -25,14 +25,13 @@ public final class R {
         public static final int RelativeLayout1=0x7f07000b;
         public static final int Workouts=0x7f070014;
         public static final int bNewExercise=0x7f07000c;
-        public static final int calendarView1=0x7f070016;
         public static final int etEditWorkoutName=0x7f070003;
         public static final int etExerciseLabel=0x7f07000f;
         public static final int etExerciseLabelEdit=0x7f070007;
         public static final int etWorkoutName=0x7f07000a;
-        public static final int menu_settings=0x7f070018;
-        public static final int menuitem1=0x7f070019;
-        public static final int menuitem2=0x7f070017;
+        public static final int menu_settings=0x7f070017;
+        public static final int menuitem1=0x7f070018;
+        public static final int menuitem2=0x7f070016;
         public static final int scrollView1=0x7f070005;
         public static final int tabhost=0x7f070012;
         public static final int tvEditExerciseName=0x7f070004;

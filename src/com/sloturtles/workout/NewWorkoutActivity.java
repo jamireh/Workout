@@ -53,7 +53,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		mLayout.addView(createNewEditText(mEditText.getText().toString()));
 	}
 
-	//Create dynamic EditTexts
+	//Create dynamic EditTexts - StackOverFlow
 	private View createNewEditText(String string) {
 		@SuppressWarnings("deprecation")
 		final LayoutParams lparams = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
@@ -70,7 +70,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		case R.id.menuitem2:
 			saveWorkout();
 			sWorkoutName = "";
-			WorkoutsActivity.superScreen = 1;
+			Toast.makeText(this, "Workout Created", Toast.LENGTH_SHORT).show();
 			finish();
 			break;
 		default:
@@ -89,7 +89,7 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 			WorkoutsActivity.workoutList.get(WorkoutsActivity.workoutList.size()-1).exerciseList.add(blah);
 		}
-		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
 		SharedPreferences.Editor spEditor = sp.edit();
 
 		String workoutNames = "";
@@ -106,10 +106,6 @@ public class NewWorkoutActivity extends Activity implements OnClickListener {
 		
 		spEditor.putString("workoutTag", workoutNames);
 		spEditor.putString("exerciseTag", exerciseNames);
-
-		//debug
-		toast(workoutNames);
-		toast(exerciseNames);
 
 		spEditor.commit();
 	}

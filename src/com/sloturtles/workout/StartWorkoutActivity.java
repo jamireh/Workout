@@ -6,22 +6,25 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class StartWorkoutActivity extends Activity {
 	//Global Variable Declaration/Initialization
 	List<String> exerciseList = new ArrayList<String>();
 	String globalItemName;
 	int workoutPosition;
+	public String STORE_PREFERENCES = "StorePrefs";
+	public boolean newDay = false;
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,8 @@ public class StartWorkoutActivity extends Activity {
 		Bundle data = this.getIntent().getExtras();
 		String itemName = data.getString("itemName");
 		tvItemName.setText(itemName);
-		itemName = globalItemName;
+		globalItemName = itemName;
+
 
 		//Setup ListView of CheckBox
 		lvExercises.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, exerciseList));
@@ -60,11 +64,8 @@ public class StartWorkoutActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuitem2:
-			WorkoutsActivity.superScreen = 2;
-			Calendar c = Calendar.getInstance(); 
-			String date = Integer.toString(c.get(Calendar.MONTH) + 1) + "/" + Integer.toString(c.get(Calendar.DATE)) + "/" + Integer.toString(c.get(Calendar.YEAR));
-			String text = "This workout was completed on ";
-			Toast.makeText(this, text + date, Toast.LENGTH_SHORT).show();
+			saveProgress();
+			Toast.makeText(this, "Workout Completed and Logged", Toast.LENGTH_SHORT).show();
 			finish();
 			break;
 		default:
@@ -83,5 +84,40 @@ public class StartWorkoutActivity extends Activity {
 		for(int x = 0;x<WorkoutsActivity.workoutList.get(workoutPosition).exerciseList.size();x++) {
 			exerciseList.add(WorkoutsActivity.workoutList.get(workoutPosition).exerciseList.get(x).exerciseLabel);
 		}
+	}
+	public void saveProgress() {
+		Calendar c = Calendar.getInstance(); 
+		String date = Integer.toString(c.get(Calendar.MONTH) + 1) + "/" + Integer.toString(c.get(Calendar.DATE)) + "/" + Integer.toString(c.get(Calendar.YEAR));
+
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
+		SharedPreferences.Editor spEditor = sp.edit();
+
+		String templongTitlesTag = sp.getString("progressTitleTag", "");
+		if(WorkoutsActivity.lvProgressList.size() == 0) {
+			templongTitlesTag += date + "+";
+			System.out.println("first time run ever");
+		}
+		for(int i = 0;i<WorkoutsActivity.lvProgressList.size();i++) {
+			if(WorkoutsActivity.lvProgressList.get(i).equals(date)) {
+
+			} else {
+				templongTitlesTag += date + "+";
+				newDay = true;
+				System.out.println("new day");
+			}
+		}
+		System.out.println(templongTitlesTag);
+		spEditor.putString("progressTitleTag", templongTitlesTag);
+
+
+		String templongWorkoutsTag = sp.getString("progressWorkoutTag", "");
+		templongWorkoutsTag += globalItemName + "+";
+		if(newDay) {
+			templongWorkoutsTag += "-";
+		}
+		System.out.println(templongWorkoutsTag);
+		spEditor.putString("progressWorkoutTag", templongWorkoutsTag);
+
+		spEditor.commit();
 	}
 }

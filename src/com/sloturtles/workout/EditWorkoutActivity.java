@@ -69,7 +69,7 @@ public class EditWorkoutActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menuitem2:
-			WorkoutsActivity.superScreen = 3;
+			//WorkoutsActivity.superScreen = 3;
 			Toast.makeText(this, "Workout Saved", Toast.LENGTH_SHORT).show();
 			saveWorkout();
 			finish();
@@ -107,7 +107,7 @@ public class EditWorkoutActivity extends Activity {
 			Exercise blah = new Exercise(excerciseList.get(x).getText().toString());
 			WorkoutsActivity.workoutList.get(index).exerciseList.add(blah);
 		}
-		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_WORLD_READABLE); 
+		SharedPreferences sp = getSharedPreferences(STORE_PREFERENCES, MODE_PRIVATE); 
 		SharedPreferences.Editor spEditor = sp.edit();
 
 		String workoutNames = "";
@@ -124,10 +124,6 @@ public class EditWorkoutActivity extends Activity {
 
 		spEditor.putString("workoutTag", workoutNames);
 		spEditor.putString("exerciseTag", exerciseNames);
-
-		//debug
-		toast(workoutNames);
-		toast(exerciseNames);
 
 		spEditor.commit();
 	}
